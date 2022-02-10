@@ -1,11 +1,15 @@
 import type { NextPage } from "next";
+import Button from "../../components/button";
+import Input from "../../components/input";
+import Layout from "../../components/layout";
+import TextArea from "../../components/textarea";
 
 const Upload: NextPage = () => {
 	return (
-		<div>
-			<div>
+		<Layout canGoBack title="Upload Product">
+			<form className="p-4 space-y-4">
 				<div>
-					<label>
+					<label className="w-full cursor-pointer text-gray-600 hover:border-orange-500 hover:text-orange-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
 						<svg
 							className="h-12 w-12"
 							stroke="currentColor"
@@ -20,31 +24,22 @@ const Upload: NextPage = () => {
 								strokeLinejoin="round"
 							/>
 						</svg>
-
-						<input type="file" />
+						<input className="hidden" type="file" />
 					</label>
 				</div>
-			</div>
-			<div>
-				<label>Price</label>
-				<div>
-					<div>
-						<span>$</span>
-					</div>
-					<input type="text" placeholder="0.00" />
-					<div>
-						<span>USD</span>
-					</div>
-				</div>
-			</div>
-			<div>
-				<label>Description</label>
-				<div>
-					<textarea rows={4} />
-				</div>
-			</div>
-			<button>Upload product</button>
-		</div>
+				<Input required label="Name" name="name" type="text" />
+				<Input
+					required
+					label="Price"
+					placeholder="0.00"
+					name="price"
+					type="text"
+					kind="price"
+				/>
+				<TextArea name="description" label="Description" />
+				<Button text="Upload item" />
+			</form>
+		</Layout>
 	);
 };
 
