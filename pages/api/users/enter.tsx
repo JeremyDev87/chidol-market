@@ -20,7 +20,7 @@ async function handler(
 	res: NextApiResponse<ResponseType>
 ) {
 	const { email, phone } = req.body;
-	const user = phone ? { phone: +phone } : email ? { email } : null;
+	const user = phone ? { phone: phone } : email ? { email } : null;
 	if (!user) {
 		return res.status(400).json({
 			ok: false,
@@ -45,11 +45,11 @@ async function handler(
 	});
 	console.log(token);
 	if (phone) {
-		await twilioClient.messages.create({
-			messagingServiceSid: process.env.TWILIO_MSID,
-			to: process.env.MYPHONE!,
-			body: `인증번호 : ${payload}`,
-		});
+		// await twilioClient.messages.create({
+		// 	messagingServiceSid: process.env.TWILIO_MSID,
+		// 	to: process.env.MYPHONE!,
+		// 	body: `인증번호 : ${payload}`,
+		// });
 	} else if (email) {
 		const sendEmail = await transporter
 			.sendMail({
