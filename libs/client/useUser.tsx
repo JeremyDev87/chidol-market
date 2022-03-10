@@ -6,7 +6,7 @@ const fetcher = (url: string) => fetch(url).then((response) => response.json());
 
 export default function useUser() {
 	const { data, error } = useSWR("/api/users/me", fetcher);
-
+	console.log(data);
 	//router.replace("/enter");
 	return data;
 }
