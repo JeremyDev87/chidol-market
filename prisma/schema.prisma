@@ -13,16 +13,19 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  phone     String?   @unique
-  email     String?   @unique
-  avatar    String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  tokens    Token[]
-  products  Product[]
-  fav       Fav[]
+  id         Int         @id @default(autoincrement())
+  name       String
+  phone      String?     @unique
+  email      String?     @unique
+  avatar     String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  tokens     Token[]
+  products   Product[]
+  fav        Fav[]
+  posts      Post[]
+  answers    Answer[]
+  wonderings Wondering[]
 }
 
 model Token {
@@ -55,5 +58,36 @@ model Fav {
   productId Int
   createAt  DateTime @default(now())
   updateAt  DateTime @updatedAt
+}
 
+model Post {
+  id         Int         @id @default(autoincrement())
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  question   String      @db.MediumText
+  createAt   DateTime    @default(now())
+  updateAt   DateTime    @updatedAt
+  answers    Answer[]
+  worderings Wondering[]
+}
+
+model Answer {
+  id       Int      @id @default(autoincrement())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  answer   String   @db.MediumText
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   Int
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model Wondering {
+  id       Int      @id @default(autoincrement())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   Int
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   Int
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
