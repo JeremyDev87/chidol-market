@@ -68,7 +68,7 @@ model Post {
   createAt   DateTime    @default(now())
   updateAt   DateTime    @updatedAt
   answers    Answer[]
-  worderings Wondering[]
+  wonderings Wondering[]
 }
 
 model Answer {
