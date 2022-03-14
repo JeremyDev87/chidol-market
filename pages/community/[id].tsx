@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Answer, Post, User } from "@prisma/client";
 import Link from "next/link";
+import useMutation from "@libs/client/useMutation";
+import { cls } from "@libs/client/utils";
 
 interface AnswerWithUser extends Answer {
 	user: User;
@@ -20,14 +22,35 @@ interface PostWithUser extends Post {
 interface CommunityPostResponse {
 	ok: boolean;
 	post: PostWithUser;
+	isWondering: boolean;
 }
 
 const CommunityPostDetail: NextPage = () => {
 	const router = useRouter();
-	const { data, error } = useSWR<CommunityPostResponse>(
+	const { data, mutate } = useSWR<CommunityPostResponse>(
 		router.query?.id ? `/api/posts/${router.query.id}` : null
 	);
-	console.log(data);
+	const [wonder] = useMutation(`/api/posts/${router.query.id}/wonder`);
+	const onWonderClick = () => {
+		if (!data) return;
+		mutate(
+			{
+				...data,
+				post: {
+					...data.post,
+					_count: {
+						...data.post._count,
+						wonderings: data?.isWondering
+							? data?.post?._count?.wonderings - 1
+							: data?.post?._count?.wonderings + 1,
+					},
+				},
+				isWondering: !data?.isWondering,
+			},
+			false
+		);
+		wonder({});
+	};
 	return (
 		<Layout canGoBack>
 			<div>
@@ -53,7 +76,13 @@ const CommunityPostDetail: NextPage = () => {
 						{data?.post?.question}
 					</div>
 					<div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
-						<span className="flex space-x-2 items-center text-sm">
+						<button
+							onClick={onWonderClick}
+							className={cls(
+								"flex space-x-2 items-center text-sm",
+								data?.isWondering ? "text-teal-600" : ""
+							)}
+						>
 							<svg
 								className="w-4 h-4"
 								fill="none"
@@ -71,7 +100,7 @@ const CommunityPostDetail: NextPage = () => {
 							<span>
 								궁금해요 {data?.post?._count?.wonderings}
 							</span>
-						</span>
+						</button>
 						<span className="flex space-x-2 items-center text-sm">
 							<svg
 								className="w-4 h-4"
