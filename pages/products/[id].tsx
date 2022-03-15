@@ -26,7 +26,9 @@ const ItemDetail: NextPage = () => {
 	const { data, mutate: boundMutate } = useSWR<ItemDetailResponse>(
 		router.query.id ? `/api/products/${router.query.id}` : null
 	);
-	const [toggleFav] = useMutation(`/api/products/${router.query.id}/fav`);
+	const [toggleFav, { loading }] = useMutation(
+		`/api/products/${router.query.id}/fav`
+	);
 	const onFavClick = () => {
 		if (!data) return;
 		// boundMutate({ ...data, isLiked: !data.isLiked }, false);
@@ -35,7 +37,9 @@ const ItemDetail: NextPage = () => {
 			false
 		);
 		// mutate("/api/users/me", { ok: false }, false);
-		toggleFav({});
+		if (!loading) {
+			toggleFav({});
+		}
 	};
 	return (
 		<Layout canGoBack>
