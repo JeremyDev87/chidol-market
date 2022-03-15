@@ -5,6 +5,7 @@ import Layout from "@components/layout";
 import useSWR from "swr";
 import { Post, User } from "@prisma/client";
 import internal from "stream";
+import useCoords from "@libs/client/useCoords";
 
 interface PostWithUser extends Post {
 	user: User;
@@ -18,8 +19,13 @@ interface postResponse {
 	posts: PostWithUser[];
 }
 const Community: NextPage = () => {
-	const { data } = useSWR<postResponse>("/api/posts");
-	console.log(data);
+	const { latitude, longitude } = useCoords();
+	console.log(latitude, longitude);
+	const { data } = useSWR<postResponse>(
+		latitude && longitude
+			? `/api/posts?latitude=${latitude}&longitude=${longitude}`
+			: null
+	);
 	return (
 		<Layout hasTabBar title="동네생활">
 			<div className="space-y-4 divide-y-[2px]">
