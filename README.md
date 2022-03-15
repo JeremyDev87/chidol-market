@@ -4,12 +4,18 @@
 
 ## 사용 기술
 
+-   React 18 rc
 -   Next.js
+-   Tailwind
+-   TypeScript
 -   Prisma
 -   PlanetScale
 -   React Hook Form
+-   Iron-Session
 -   Twilio
 -   SendGrid (nodemailer로 변경)
+-   SWR
+-
 -   AWS EC2(예정)
 -   AWS Route53(예정)
 
