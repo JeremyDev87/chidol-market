@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { useEffect } from "react";
+import streams from "pages/api/streams";
 
 interface StreamMessage {
 	id: number;
@@ -36,19 +37,37 @@ const Stream: NextPage = () => {
 		`/api/streams/${router.query.id}/messages`
 	);
 	const { data, mutate } = useSWR<StreamResponse>(
-		router?.query?.id ? `/api/streams/${router.query.id}` : null
+		router?.query?.id ? `/api/streams/${router.query.id}` : null,
+		{
+			refreshInterval: 1000,
+		}
 	);
 	const onValid = (form: MessageForm) => {
 		if (loading) return;
 		reset();
+		mutate(
+			(prev) =>
+				prev &&
+				({
+					...prev,
+					stream: {
+						...prev.stream,
+						messages: [
+							...prev.stream.messages,
+							{
+								id: Date.now(),
+								message: form.message,
+								user: {
+									...user,
+								},
+							},
+						],
+					},
+				} as any),
+			false
+		);
 		sendMessage(form);
 	};
-
-	useEffect(() => {
-		if (sendMessageData && sendMessageData.ok) {
-			mutate();
-		}
-	}, [sendMessageData, mutate]);
 	return (
 		<Layout canGoBack>
 			<div className="py-10 px-4  space-y-4">
