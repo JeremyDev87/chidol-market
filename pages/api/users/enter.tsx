@@ -3,6 +3,7 @@ import twilio from "twilio";
 import mail from "@sendgrid/mail";
 import withHandler, { ResponseType } from "@libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
+import { withApiSession } from "@libs/server/withSession";
 
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
@@ -71,8 +72,10 @@ async function handler(
 	});
 }
 
-export default withHandler({
-	methods: ["POST"],
-	handler,
-	isPrivate: false,
-});
+export default withApiSession(
+	withHandler({
+		methods: ["GET", "POST"],
+		handler,
+		isPrivate: false,
+	})
+);

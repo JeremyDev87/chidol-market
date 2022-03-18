@@ -48,16 +48,16 @@ async function handler(
 					},
 				},
 			},
-			where: {
-				latitude: {
-					gte: ParsedLatitude - 0.01,
-					lte: ParsedLatitude + 0.01,
-				},
-				longitude: {
-					gte: ParsedLongitude - 0.01,
-					lte: ParsedLongitude + 0.01,
-				},
-			},
+			// where: {
+			// 	latitude: {
+			// 		gte: ParsedLatitude - 0.05,
+			// 		lte: ParsedLatitude + 0.05,
+			// 	},
+			// 	longitude: {
+			// 		gte: ParsedLongitude - 0.05,
+			// 		lte: ParsedLongitude + 0.05,
+			// 	},
+			// },
 		});
 		res.json({
 			ok: true,
