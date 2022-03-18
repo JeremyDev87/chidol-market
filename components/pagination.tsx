@@ -9,6 +9,9 @@ interface PaginationProps {
 type Direction = "prev" | "next";
 
 export default function Pagination({ nowPage, dataSize }: PaginationProps) {
+	if (nowPage === undefined) {
+		nowPage = 1;
+	}
 	const router = useRouter();
 	const maxPage = Number((dataSize / 10).toFixed()) + 1;
 	let [showPage, setShowPage] = useState<number[]>([]);
