@@ -36,7 +36,7 @@ const Community: NextPage = () => {
 								동네질문
 							</span>
 							<div className="mt-2 px-4 text-gray-700">
-								<span className="text-orange-500 font-medium">
+								<span className="text-teal-500 font-medium">
 									Q.
 								</span>
 								{post.question}

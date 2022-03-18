@@ -51,7 +51,7 @@ const Enter: NextPage = () => {
 
 	return (
 		<div className="mt-16 px-4">
-			<h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
+			<h3 className="text-3xl font-bold text-center">Enter to Chidol</h3>
 			<div className="mt-12">
 				{data?.ok ? (
 					<form
@@ -81,7 +81,7 @@ const Enter: NextPage = () => {
 									className={cls(
 										"pb-4 font-medium text-sm border-b-2",
 										method === "email"
-											? " border-orange-500 text-orange-400"
+											? " border-teal-500 text-teal-400"
 											: "border-transparent hover:text-gray-400 text-gray-500"
 									)}
 									onClick={onEmailClick}
@@ -92,7 +92,7 @@ const Enter: NextPage = () => {
 									className={cls(
 										"pb-4 font-medium text-sm border-b-2",
 										method === "phone"
-											? " border-orange-500 text-orange-400"
+											? " border-teal-500 text-teal-400"
 											: "border-transparent hover:text-gray-400 text-gray-500"
 									)}
 									onClick={onPhoneClick}

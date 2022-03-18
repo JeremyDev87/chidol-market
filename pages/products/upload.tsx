@@ -35,7 +35,7 @@ const Upload: NextPage = () => {
 		<Layout canGoBack title="Upload Product">
 			<form className="p-4 space-y-4" onSubmit={handleSubmit(onValid)}>
 				<div>
-					<label className="w-full cursor-pointer text-gray-600 hover:border-orange-500 hover:text-orange-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
+					<label className="w-full cursor-pointer text-gray-600 hover:border-teal-500 hover:text-teal-500 flex items-center justify-center border-2 border-dashed border-gray-300 h-48 rounded-md">
 						<svg
 							className="h-12 w-12"
 							stroke="currentColor"

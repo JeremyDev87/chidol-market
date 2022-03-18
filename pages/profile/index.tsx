@@ -35,7 +35,7 @@ const Profile: NextPage = () => {
 				<div className="mt-10 flex justify-around">
 					<Link href="/profile/sold">
 						<a className="flex flex-col items-center">
-							<div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
+							<div className="w-14 h-14 text-white bg-teal-400 rounded-full flex items-center justify-center">
 								<svg
 									className="w-6 h-6"
 									fill="none"
@@ -58,7 +58,7 @@ const Profile: NextPage = () => {
 					</Link>
 					<Link href="/profile/bought">
 						<a className="flex flex-col items-center">
-							<div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
+							<div className="w-14 h-14 text-white bg-teal-400 rounded-full flex items-center justify-center">
 								<svg
 									className="w-6 h-6"
 									fill="none"
@@ -81,7 +81,7 @@ const Profile: NextPage = () => {
 					</Link>
 					<Link href="/profile/loved">
 						<a className="flex flex-col items-center">
-							<div className="w-14 h-14 text-white bg-orange-400 rounded-full flex items-center justify-center">
+							<div className="w-14 h-14 text-white bg-teal-400 rounded-full flex items-center justify-center">
 								<svg
 									className="w-6 h-6"
 									fill="none"
