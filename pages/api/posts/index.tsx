@@ -27,11 +27,12 @@ async function handler(
 		res.json({ ok: true, post });
 	}
 	if (req.method === "GET") {
-		const {
-			query: { latitude, longitude },
-		} = req;
-		const ParsedLatitude = parseFloat(latitude.toString());
-		const ParsedLongitude = parseFloat(longitude.toString());
+		// const {
+		// 	query: { latitude, longitude },
+		// } = req;
+		// console.log(latitude, longitude);
+		// const ParsedLatitude = parseFloat(latitude.toString());
+		// const ParsedLongitude = parseFloat(longitude.toString());
 		const posts = await client.post.findMany({
 			include: {
 				user: {
