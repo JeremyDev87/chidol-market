@@ -1,18 +1,33 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import FloatingButton from "@components/floating-button";
+import Pagination from "@components/pagination";
 import Layout from "@components/layout";
 import { Stream } from "@prisma/client";
 import useSWR from "swr";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 interface StreamsResponse {
 	ok: boolean;
 	streams: Stream[];
+	rowCnt: {
+		_all: number;
+	};
 }
 
 const Streams: NextPage = () => {
-	const { data } = useSWR<StreamsResponse>("/api/streams");
+	const router = useRouter();
+	const [page, setPage] = useState<number>();
+
+	const { data } = useSWR<StreamsResponse>(`/api/streams?page=${page}`);
+	useEffect(() => {
+		console.log("rendering check");
+		if (router?.query?.page) {
+			setPage(+router?.query?.page.toString());
+		}
+	}, [page, router]);
 	return (
 		<Layout hasTabBar title="라이브">
 			<div className=" divide-y-[1px] space-y-4">
@@ -26,6 +41,7 @@ const Streams: NextPage = () => {
 						</a>
 					</Link>
 				))}
+				<Pagination nowPage={page} dataSize={data?.rowCnt?._all!} />
 				<FloatingButton href="/streams/create">
 					<svg
 						className="w-6 h-6"

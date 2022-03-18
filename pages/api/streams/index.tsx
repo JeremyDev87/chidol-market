@@ -8,8 +8,28 @@ async function handler(
 	res: NextApiResponse<ResponseType>
 ) {
 	if (req.method === "GET") {
-		const streams = await client.stream.findMany();
-		res.json({ ok: true, streams });
+		let page =
+			req.query.page && req.query.page !== undefined
+				? +req.query?.page?.toString()
+				: 1;
+		let skip: number = (page - 1) * 10;
+		if (!skip) {
+			skip = 1;
+		}
+
+		const rowCnt = await client.stream.count({
+			select: {
+				_all: true,
+			},
+		});
+		const streams = await client.stream.findMany({
+			take: 10,
+			skip,
+			orderBy: {
+				createdAt: "desc",
+			},
+		});
+		res.json({ ok: true, streams, rowCnt });
 	}
 	if (req.method === "POST") {
 		const {
