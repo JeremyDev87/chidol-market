@@ -4,13 +4,15 @@ import Input from "@components/input";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useMutation from "@libs/client/useMutation";
+import Image from "next/image";
 
 interface EditProfileForm {
 	name?: string;
 	email?: string;
 	phone?: string;
+	avatar?: FileList;
 	formErrors?: string;
 }
 interface EditProfileResponse {
@@ -26,11 +28,13 @@ const EditProfile: NextPage = () => {
 		handleSubmit,
 		setError,
 		formState: { errors },
+		watch,
 	} = useForm<EditProfileForm>();
 	const [editProfile, { data, loading }] =
 		useMutation<EditProfileResponse>("/api/users/me");
 
-	const onValid = ({ email, phone, name }: EditProfileForm) => {
+	const onValid = ({ email, phone, name, avatar }: EditProfileForm) => {
+		console.log(avatar);
 		if (email === "" && phone === "" && name === "") {
 			return setError("formErrors", {
 				message: "Email이나 Phone 둘중 하나는 채우세요",
@@ -51,6 +55,14 @@ const EditProfile: NextPage = () => {
 		}
 	}, [data, setError]);
 
+	const avatar = watch("avatar");
+	const [avatarPreview, setAvatarPreview] = useState("");
+	useEffect(() => {
+		if (avatar && avatar.length > 0) {
+			const file = avatar[0];
+			setAvatarPreview(URL.createObjectURL(file));
+		}
+	}, [avatar]);
 	return (
 		<Layout canGoBack title="Edit Profile">
 			<form
@@ -58,13 +70,25 @@ const EditProfile: NextPage = () => {
 				onSubmit={handleSubmit(onValid)}
 			>
 				<div className="flex items-center space-x-3">
-					<div className="w-14 h-14 rounded-full bg-slate-500" />
+					{avatarPreview ? (
+						<Image
+							width={56}
+							height={56}
+							alt={"avatarPreview"}
+							src={avatarPreview}
+							className="rounded-full bg-slate-500"
+						/>
+					) : (
+						<div className="w-14 h-14 rounded-full bg-slate-500" />
+					)}
+
 					<label
 						htmlFor="picture"
 						className="cursor-pointer py-2 px-3 border hover:bg-gray-50 border-gray-300 rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 text-gray-700"
 					>
 						Change
 						<input
+							{...register("avatar")}
 							id="picture"
 							type="file"
 							className="hidden"
