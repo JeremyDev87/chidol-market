@@ -33,6 +33,22 @@ async function handler(
 			},
 		},
 	});
+	const foundToken = await client.token.findUnique({
+		where: {
+			payload: token.payload,
+		},
+		include: { user: true },
+	});
+	if (!foundToken) return res.status(404).end();
+	req.session.user = {
+		id: foundToken.userId,
+	};
+	await req.session.save();
+	await client.token.deleteMany({
+		where: {
+			userId: foundToken.userId,
+		},
+	});
 	return res.status(200).json({
 		ok: true,
 	});
