@@ -34,7 +34,6 @@ const EditProfile: NextPage = () => {
 		useMutation<EditProfileResponse>("/api/users/me");
 
 	const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
-		console.log(avatar);
 		if (email === "" && phone === "" && name === "") {
 			return setError("formErrors", {
 				message: "Email이나 Phone 둘중 하나는 채우세요",

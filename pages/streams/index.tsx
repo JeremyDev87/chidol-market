@@ -23,7 +23,6 @@ const Streams: NextPage = () => {
 
 	const { data } = useSWR<StreamsResponse>(`/api/streams?page=${page}`);
 	useEffect(() => {
-		console.log("rendering check");
 		if (router?.query?.page) {
 			setPage(+router?.query?.page.toString());
 		}

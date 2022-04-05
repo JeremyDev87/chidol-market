@@ -46,8 +46,6 @@ async function handler(
 			},
 		},
 	});
-	console.log(token);
-	console.log(password);
 	// if (phone) {
 	// 	await twilioClient.messages.create({
 	// 		messagingServiceSid: process.env.TWILIO_MSID,
