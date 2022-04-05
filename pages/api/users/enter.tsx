@@ -20,13 +20,14 @@ async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse<ResponseType>
 ) {
-	const { email, phone } = req.body;
+	const { email, phone, password } = req.body;
 	const user = phone ? { phone: phone } : email ? { email } : null;
 	if (!user) {
 		return res.status(400).json({
 			ok: false,
 		});
 	}
+
 	const payload = Math.floor(100000 + Math.random() * 900000) + "";
 	const token = await client.token.create({
 		data: {
@@ -38,6 +39,7 @@ async function handler(
 					},
 					create: {
 						name: "Anoymous",
+						password: "1234",
 						...user,
 					},
 				},
@@ -45,28 +47,29 @@ async function handler(
 		},
 	});
 	console.log(token);
-	if (phone) {
-		// await twilioClient.messages.create({
-		// 	messagingServiceSid: process.env.TWILIO_MSID,
-		// 	to: process.env.MYPHONE!,
-		// 	body: `인증번호 : ${payload}`,
-		// });
-	} else if (email) {
-		const sendEmail = await transporter
-			.sendMail({
-				from: `soundbrokaz <soundbrokaz@gmail.com>`,
-				to: email,
-				subject: "취돌 인증메일",
-				text: `인증번호 : ${payload}`,
-				html: `         <div style="text-align: center;">
-				<h3 style="color: #FA5882">취돌 인증 메일</h3>
-				<br />
-				<p>인증번호 :  ${payload}</p>
-			  </div>`,
-			})
-			.then((result: any) => console.log(result))
-			.catch((err: any) => console.log(err));
-	}
+	console.log(password);
+	// if (phone) {
+	// 	await twilioClient.messages.create({
+	// 		messagingServiceSid: process.env.TWILIO_MSID,
+	// 		to: process.env.MYPHONE!,
+	// 		body: `인증번호 : ${payload}`,
+	// 	});
+	// } else if (email) {
+	// 	const sendEmail = await transporter
+	// 		.sendMail({
+	// 			from: `soundbrokaz <soundbrokaz@gmail.com>`,
+	// 			to: email,
+	// 			subject: "취돌 인증메일",
+	// 			text: `인증번호 : ${payload}`,
+	// 			html: `         <div style="text-align: center;">
+	// 			<h3 style="color: #FA5882">Hobbyist 인증 메일</h3>
+	// 			<br />
+	// 			<p>인증번호 :  ${payload}</p>
+	// 		  </div>`,
+	// 		})
+	// 		.then((result: any) => console.log(result))
+	// 		.catch((err: any) => console.log(err));
+	// }
 	return res.status(200).json({
 		ok: true,
 	});
