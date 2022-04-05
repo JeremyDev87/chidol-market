@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 interface EnterForm {
 	email?: string;
 	phone?: string;
+	password: string;
 }
 interface TokenForm {
 	token: string;
@@ -51,7 +52,7 @@ const Enter: NextPage = () => {
 
 	return (
 		<div className="mt-16 px-4">
-			<h3 className="text-3xl font-bold text-center">Enter to Chidol</h3>
+			<h3 className="text-3xl font-bold text-center">Hobbyist</h3>
 			<div className="mt-12">
 				{data?.ok ? (
 					<form
@@ -74,7 +75,7 @@ const Enter: NextPage = () => {
 						{" "}
 						<div className="flex flex-col items-center">
 							<h5 className="text-sm text-gray-500 font-medium">
-								Enter using:
+								Sign in
 							</h5>
 							<div className="grid  border-b  w-full mt-8 grid-cols-2 ">
 								<button
@@ -113,6 +114,7 @@ const Enter: NextPage = () => {
 									name="email"
 									label="Email address"
 									type="email"
+									kind="email"
 									required
 								/>
 							) : null}
@@ -128,6 +130,16 @@ const Enter: NextPage = () => {
 									required
 								/>
 							) : null}
+							<Input
+								register={register("password", {
+									required: true,
+								})}
+								name="password"
+								label="Password"
+								type="text"
+								kind="password"
+								required
+							/>
 							{method === "email" ? (
 								<Button
 									text={

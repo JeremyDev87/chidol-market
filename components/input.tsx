@@ -4,7 +4,7 @@ interface InputProps {
 	label: string;
 	name: string;
 	type?: string;
-	kind?: "text" | "phone" | "price";
+	kind?: "text" | "phone" | "price" | "password" | "email";
 	register?: UseFormRegisterReturn;
 	required: boolean;
 	// [key: string]: any;
@@ -65,6 +65,30 @@ export default function Input({
 						required={required}
 						{...rest}
 						className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md rounded-l-none shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+					/>
+				</div>
+			) : null}
+			{kind === "password" ? (
+				<div className="flex rounded-md shadow-sm">
+					<input
+						id={name}
+						{...register}
+						required={required}
+						{...rest}
+						type="password"
+						className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+					/>
+				</div>
+			) : null}
+			{kind === "email" ? (
+				<div className="flex rounded-md shadow-sm">
+					<input
+						id={name}
+						{...register}
+						required={required}
+						{...rest}
+						type="email"
+						className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500"
 					/>
 				</div>
 			) : null}
