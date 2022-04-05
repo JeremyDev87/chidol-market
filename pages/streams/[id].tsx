@@ -29,7 +29,7 @@ interface StreamResponse {
 interface MessageForm {
 	message: string;
 }
-const Stream: NextPage = () => {
+const Streaming: NextPage = () => {
 	const { user } = useUser();
 	const router = useRouter();
 	const { register, handleSubmit, reset } = useForm<MessageForm>();
@@ -124,4 +124,4 @@ const Stream: NextPage = () => {
 	);
 };
 
-export default Stream;
+export default Streaming;
