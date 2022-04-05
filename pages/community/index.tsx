@@ -27,13 +27,13 @@ const Community: NextPage = () => {
 			: null
 	);
 	return (
-		<Layout hasTabBar title="동네생활">
+		<Layout hasTabBar title="취미생활">
 			<div className="space-y-4 divide-y-[2px]">
 				{data?.posts?.map((post) => (
 					<Link key={post.id} href={`/community/${post.id}`}>
 						<a className="flex cursor-pointer flex-col pt-4 items-start">
 							<span className="flex ml-4 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-								동네질문
+								취미질문
 							</span>
 							<div className="mt-2 px-4 text-gray-700">
 								<span className="text-teal-500 font-medium">
@@ -61,9 +61,7 @@ const Community: NextPage = () => {
 											d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 										></path>
 									</svg>
-									<span>
-										궁금해요 {post._count.wonderings}
-									</span>
+									<span>공감 {post._count.wonderings}</span>
 								</span>
 								<span className="flex space-x-2 items-center text-sm">
 									<svg
