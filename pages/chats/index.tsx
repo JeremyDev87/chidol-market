@@ -11,9 +11,9 @@ const Chats: NextPage = () => {
 						<a className="flex px-4 cursor-pointer py-3 items-center space-x-3">
 							<div className="w-12 h-12 rounded-full bg-slate-300" />
 							<div>
-								<p className="text-gray-700">Steve Jebs</p>
+								<p className="text-gray-700">채팅발신자</p>
 								<p className="text-sm  text-gray-500">
-									See you tomorrow in the corner at 2pm!
+									채팅은 서버 있어야 만듬
 								</p>
 							</div>
 						</a>

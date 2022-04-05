@@ -6,9 +6,9 @@ const ChatDetail: NextPage = () => {
 	return (
 		<Layout canGoBack title="Steve">
 			<div className="py-10 pb-16 px-4 space-y-4">
-				<Message message="Hi how much are you selling them for?" />
-				<Message message="I want ￦20,000" reversed />
-				<Message message="미쳤어" />
+				<Message message="얼마에 팔꺼냐?" />
+				<Message message="천만원" reversed />
+				<Message message="미친놈야" />
 				<form className="fixed py-2 bg-white  bottom-0 inset-x-0">
 					<div className="flex relative max-w-md items-center  w-full mx-auto">
 						<input
